@@ -5,7 +5,9 @@ import com.ibm.swathi.springbootmongo.repository.UsersRepository;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -34,6 +36,21 @@ public class UsersResource {
     }
     
     // Insert by ID
+    @RequestMapping(value = "/insert", method = RequestMethod.POST)
+    public Users insertRecord(@RequestBody Users newUser) {
+        return usersRepository.insert(newUser);
+    }
+    
     // Update by ID
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public Users updateRecord(@RequestBody Users newUser) {
+        return usersRepository.save(newUser);
+    }
+    
     // Delete by ID
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+    public Void deleteRecord(@PathVariable(value="id") int id) {
+        usersRepository.deleteById(id);
+		return null;
+    }
 }
